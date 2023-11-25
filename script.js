@@ -22,6 +22,13 @@ const displayError = (error) => {
   document.querySelector(".weather").style.display = "none";
 };
 
+// Helper function to sanitize HTML
+function sanitizeHTML(text) {
+  var element = document.createElement("div");
+  element.innerText = text;
+  return element.innerHTML;
+}
+
 // Update the DOM
 const updateDOM = (data) => {
   const {
@@ -30,11 +37,11 @@ const updateDOM = (data) => {
     wind: { speed },
     weather,
   } = data;
-  document.querySelector(".city").innerHTML = name;
-  document.querySelector(".temp").innerHTML = `${Math.round(temp)}°C`;
-  document.querySelector(".humidity").innerHTML = `${humidity}%`;
-  document.querySelector(".wind").innerHTML = `${speed} km/h`;
-  updateWeatherIcon(weather[0].main);
+  document.querySelector(".city").innerText = sanitizeHTML(name);
+  document.querySelector(".temp").innerText = `${Math.round(temp)}°C`;
+  document.querySelector(".humidity").innerText = `${humidity}%`;
+  document.querySelector(".wind").innerText = `${speed} km/h`;
+  updateWeatherIcon(sanitizeHTML(weather[0].main));
   document.querySelector(".weather").style.display = "block";
   document.querySelector(".error").style.display = "none";
 };
@@ -49,7 +56,7 @@ const updateWeatherIcon = (weatherCondition) => {
     Mist: "fa-solid fa-smog",
   };
 
-  weatherIcon.innerHTML = `<i class="${weatherIcons[weatherCondition]}"></i>`;
+  weatherIcon.insertAdjacentHTML = `<i class="${weatherIcons[weatherCondition]}"></i>`;
 };
 
 // Check weather function
