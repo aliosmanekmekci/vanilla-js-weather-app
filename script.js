@@ -42,14 +42,14 @@ const updateDOM = (data) => {
 // Update the weather icon
 const updateWeatherIcon = (weatherCondition) => {
   const weatherIcons = {
-    Clouds: "images/clouds.png",
-    Clear: "images/clear.png",
-    Rain: "images/rain.png",
-    Drizzle: "images/drizzle.png",
-    Mist: "images/mist.png",
+    Clouds: "fa-solid fa-cloud",
+    Clear: "fa-regular fa-sun",
+    Rain: "fa-solid fa-cloud-showers-heavy",
+    Drizzle: "fa-solid fa-cloud-rain",
+    Mist: "fa-solid fa-smog",
   };
 
-  weatherIcon.src = weatherIcons[weatherCondition];
+  weatherIcon.innerHTML = `<i class="${weatherIcons[weatherCondition]}"></i>`;
 };
 
 // Check weather function

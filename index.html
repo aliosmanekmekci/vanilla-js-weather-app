@@ -3,32 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Document</title>
+
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://kit.fontawesome.com/9dee6dfb51.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <main class="card">
       <header class="search">
         <input type="text" placeholder="Enter city name..." spellcheck="false" />
-        <button><img src="./search.png" alt="Search Icon" /></button>
+        <button>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </header>
       <section class="error">
         <p>Invalid City Name</p>
       </section>
       <section class="weather">
-        <img src="./rain.png" class="weather-icon" alt="Weather Icon" />
+        <div class="weather-icon"></div>
         <h1 class="temp">22°C</h1>
         <h2 class="city">Istanbul</h2>
         <div class="details">
-          <div class="col">
-            <img src="./humidity.png" alt="Humidity Icon" />
+          <div class="col-humidity">
+            <i class="fa-solid fa-water"></i>
             <div>
-              <p class="./humidity">50%</p>
+              <p class="humidity">50%</p>
               <p>Humidity</p>
             </div>
           </div>
-          <div class="col">
-            <img src="./wind.png" alt="Wind Speed Icon" />
+          <div class="col-wind">
+            <i class="fa-solid fa-wind"></i>
             <div>
               <p class="wind">15 km/h</p>
               <p>Wind Speed</p>
