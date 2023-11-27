@@ -50,8 +50,12 @@ body {
   cursor: pointer;
 }
 
-.search button img {
+/* .search button img {
   width: 25px;
+} */
+
+.fa-magnifying-glass {
+  font-size: 23px; /* Adjust the size as needed */
 }
 
 .weather-icon {
