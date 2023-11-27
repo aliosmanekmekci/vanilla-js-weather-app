@@ -17,33 +17,38 @@ const fetchData = async (city) => {
 };
 
 // Handle errors
-const displayError = (error) => {
+const displayError = () => {
   document.querySelector(".error").style.display = "block";
   document.querySelector(".weather").style.display = "none";
 };
 
-// Helper function to sanitize HTML
 function sanitizeHTML(text) {
-  var element = document.createElement("div");
-  element.innerText = text;
-  return element.innerHTML;
+  const parser = new DOMParser();
+  const sanitizedText = parser.parseFromString(text, "text/html").body.textContent;
+  return sanitizedText;
 }
 
-// Update the DOM
 const updateDOM = (data) => {
-  const {
-    name,
-    main: { temp, humidity },
-    wind: { speed },
-    weather,
-  } = data;
-  document.querySelector(".city").innerText = sanitizeHTML(name);
-  document.querySelector(".temp").innerText = `${Math.round(temp)}°C`;
-  document.querySelector(".humidity").innerText = `${humidity}%`;
-  document.querySelector(".wind").innerText = `${speed} km/h`;
+  const { name, main, wind, weather } = data;
+  const { temp, humidity } = main;
+  const { speed } = wind;
+
+  const cityElement = document.querySelector(".city");
+  const tempElement = document.querySelector(".temp");
+  const humidityElement = document.querySelector(".humidity");
+  const windElement = document.querySelector(".wind");
+  const weatherElement = document.querySelector(".weather");
+  const errorElement = document.querySelector(".error");
+
+  cityElement.innerText = sanitizeHTML(name);
+  tempElement.innerText = `${Math.round(temp)}°C`;
+  humidityElement.innerText = `${humidity}%`;
+  windElement.innerText = `${speed} km/h`;
+
   updateWeatherIcon(sanitizeHTML(weather[0].main));
-  document.querySelector(".weather").style.display = "block";
-  document.querySelector(".error").style.display = "none";
+
+  weatherElement.style.display = "block";
+  errorElement.style.display = "none";
 };
 
 // Update the weather icon
@@ -69,18 +74,22 @@ const checkWeather = async (city) => {
   }
 };
 
+/**
+ * Initializes the application by adding event listeners to the document and search button.
+ */
 const init = () => {
-  // When press enter
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      checkWeather(searchInput.value);
-    }
-  });
+  document.addEventListener("keydown", handleEnterKeyPress);
+  searchButton.addEventListener("click", handleSearchButtonClick);
+};
 
-  // When button clicked
-  searchButton.addEventListener("click", () => {
+const handleEnterKeyPress = (event) => {
+  if (event.key === "Enter") {
     checkWeather(searchInput.value);
-  });
+  }
+};
+
+const handleSearchButtonClick = () => {
+  checkWeather(searchInput.value);
 };
 
 init();
